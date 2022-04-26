@@ -1,0 +1,7 @@
+{
+  "name": "frontend-challenge-jorge-henriquez",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
