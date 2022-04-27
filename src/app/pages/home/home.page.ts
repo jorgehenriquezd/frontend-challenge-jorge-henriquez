@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HolidaysService } from 'src/app/services/holidays.service';
-import { UtilsService } from 'src/app/services/utils.service';
-
+import { Store } from "@ngrx/store";
+import { Observable } from 'rxjs';
+import { selectCountriesList, selectLoading } from 'src/app/state/selectors/holidays.selector';
+import { loadCountries } from 'src/app/state/actions/holidays.actions';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -9,33 +10,21 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class HomePage implements OnInit {
 
-  loading: boolean;
-  countries = [];
+  loading$: Observable<boolean> = new Observable()
+  countries$: Observable<any> = new Observable()
   result: string = '';
 
-  constructor(
-    public holidaysService: HolidaysService,
-    public utils: UtilsService
-    ) { }
-
+  constructor(private store: Store<any>) {     
+   } 
+    
+ 
   ngOnInit() {
-    this.getCountries();
+    this.loading$ = this.store.select(selectLoading) 
+    this.countries$ = this.store.select(selectCountriesList)  
+    this.store.dispatch(loadCountries());     
   }
 
-  getCountries() {
-    this.loading = true;
-
-    this.holidaysService.getCountries().subscribe(res => {
-      this.countries = res.countries;
-      this.loading = false;
-    }, error => {
-      this.loading = false;
-      this.utils.presentToast(error, 2000, 'danger')
-    })    
-  }
-
-  
-  searchCountry(event) {    
+  searchCountry(event: any) {
     this.result = event.target.value;
   }
 

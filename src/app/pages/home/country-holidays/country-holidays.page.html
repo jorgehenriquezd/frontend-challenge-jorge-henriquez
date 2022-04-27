@@ -1,23 +1,23 @@
-<app-header backButton="/home" [title]="countryName + ' Holidays'"></app-header>
+<app-header backButton="/home" [title]="country.name + ' Holidays'"></app-header>
 
 <ion-content>
 
-  <div *ngIf="!loading">
-    <ion-item  *ngFor="let h of holidays">      
-      <ion-label>
-       <div style="padding-bottom: 5px;">{{h.date}}</div>  
-       <ion-text color="tertiary">{{h.name}}</ion-text>       
-      </ion-label>
-    </ion-item>
-  </div>
-
-<div *ngIf="loading">
-  <ion-item *ngFor="let h of [1,1,1,1,1,1,1,1,1,1,1,1,1]">
+ <div *ngIf="(!loading$.value)">
+  <ion-item *ngFor="let h of holidays$ | async">
     <ion-label>
-      <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
-      <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+      <div style="padding-bottom: 5px;">{{h.date}}</div>
+      <ion-text color="tertiary">{{h.name}}</ion-text>
     </ion-label>
   </ion-item>
 </div>
+
+  <div *ngIf="(loading$ | async)">
+    <ion-item *ngFor="let h of [1,1,1,1,1,1,1,1,1,1,1,1,1]">
+      <ion-label>
+        <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+  </div>
 
 </ion-content>

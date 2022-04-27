@@ -8,7 +8,7 @@ import { ToastController } from '@ionic/angular';
 export class UtilsService {
 
   constructor(
-    public router: Router,
+    private router: Router,
     private toastController: ToastController   
     ) { }
 

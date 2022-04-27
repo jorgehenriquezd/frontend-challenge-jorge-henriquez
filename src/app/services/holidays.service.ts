@@ -9,7 +9,10 @@ export class HolidaysService {
 
   constructor(private http: HttpClient) { }
 
-
+/**
+ * 
+ * @returns an array of countries
+ */
   getCountries() {
     return this.http.post<any>(
       environment.baseUrl + environment.countries, {},
@@ -22,7 +25,13 @@ export class HolidaysService {
       });
   }
 
+
+  /**
+   * @param countryCode the code of the country to get the holidays list 
+   * @returns an array of holidays
+   */
   getHolidaysList(countryCode: string) {
+    
     let currentYear = new Date().getFullYear()
 
     return this.http.post<any>(

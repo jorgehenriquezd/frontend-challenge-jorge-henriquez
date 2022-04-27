@@ -8,9 +8,9 @@
   </div>
 
 
-  <div *ngIf="!loading">
-    <ion-item routerLink="country-holidays/{{c.code}}/{{c.name}}" detail
-      *ngFor="let c of countries | countryFilter: result">
+  <div *ngIf="(!loading$.value)">
+    <ion-item detail routerLink="country-holidays/{{c.code}}/{{c.name}}"
+      *ngFor="let c of countries$ | async | countryFilter: result">
       <ion-label>
         {{c.code}} <br>
         <ion-text color="tertiary">{{c.name}}</ion-text>
@@ -18,7 +18,7 @@
     </ion-item>
   </div>
 
-  <div *ngIf="loading">
+  <div *ngIf="(loading$ | async)">
     <ion-item *ngFor="let c of [1,1,1,1,1,1,1,1,1,1,1,1,1]">
       <ion-label>
         <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>

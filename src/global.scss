@@ -26,3 +26,14 @@
 @import "~@ionic/angular/css/flex-utils.css";
 @import 'animate.css';
 
+ion-content{
+    --background: white;
+}
+
+ion-item{
+    --background: transparent;
+}
+
+ion-header{
+    --background: white;
+}

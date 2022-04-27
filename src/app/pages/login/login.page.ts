@@ -15,8 +15,8 @@ export class LoginPage implements OnInit {
   revealedPassword: boolean = false;
 
   constructor(
-    public formBuilder: FormBuilder,
-    public utils: UtilsService
+    private formBuilder: FormBuilder,
+    private utils: UtilsService
   ) {
 
     this.form = this.formBuilder.group({

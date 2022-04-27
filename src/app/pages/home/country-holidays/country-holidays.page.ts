@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HolidaysService } from 'src/app/services/holidays.service';
-import { UtilsService } from 'src/app/services/utils.service';
-
+import { Store } from "@ngrx/store";
+import { Observable } from 'rxjs';
+import { Country } from 'src/app/models/country.model';
+import { loadHolidays } from 'src/app/state/actions/holidays.actions';
+import { selectHolidaysList, selectLoading } from 'src/app/state/selectors/holidays.selector';
 @Component({
   selector: 'app-country-holidays',
   templateUrl: './country-holidays.page.html',
@@ -11,37 +13,24 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class CountryHolidaysPage implements OnInit {
 
 
-  countryName: string;
-  countryCode: string;
-  loading: boolean;
-  holidays = [];
+  country = {} as Country
+  loading$: Observable<boolean> = new Observable()
+  holidays$: Observable<any> = new Observable()
 
   constructor(
     private actRoute: ActivatedRoute,
-    private holidaysService: HolidaysService,
-    private utils: UtilsService
+    private store: Store<any>
   ) {
-    this.countryCode = this.actRoute.snapshot.paramMap.get('code');
-    this.countryName = this.actRoute.snapshot.paramMap.get('name');
+    this.country.code = this.actRoute.snapshot.paramMap.get('code');
+    this.country.name = this.actRoute.snapshot.paramMap.get('name');
   }
 
-  ngOnInit() {
-    this.getHolidaysList();
+  ngOnInit() {    
+    this.holidays$ = this.store.select(selectHolidaysList)
+    this.loading$ = this.store.select(selectLoading);
+    this.store.dispatch(loadHolidays(this.country));
   }
 
-  getHolidaysList() {
-    this.loading = true;
-
-    this.holidaysService.getHolidaysList(this.countryCode).subscribe(res => {
-
-      this.holidays = res.holidays;
-      this.loading = false;
-
-    }, error => {
-      this.loading = false;
-      this.utils.presentToast(error, 2000, 'danger')
-    })
-
-  }
+  
 
 }
