@@ -1,0 +1,60 @@
+<ion-content>
+  <div class="login-container">
+    <div class="form-container">
+      <div>
+
+        <ion-text class="ion-text-center" color="light">
+          <h1><strong>HOLIDAYS</strong>APP</h1>
+          <div>LOGIN</div>
+        </ion-text>
+
+
+        <ion-card mode="ios" class="animate__animated animate__fadeIn">
+
+          <form [formGroup]="form" (ngSubmit)="submit()">
+            <!--=========================Email============================-->
+
+            <ion-item>
+              <ion-icon slot="start" color="tertiary" name="mail"></ion-icon>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input formControlName="email" type="email"></ion-input>
+            </ion-item>
+
+            <div class="ion-padding error-text" *ngIf="(email.touched) && email.errors">
+              <ion-text color="danger">
+                <span *ngIf="email.errors?.required">Email is required</span>
+                <span *ngIf="email.errors?.pattern">Email is invalid. Example: hello@gmail.com</span>
+              </ion-text>
+            </div>
+
+
+            <!--=========================Password============================-->
+            <ion-item>
+              <ion-icon slot="start" color="tertiary" name="lock-closed"></ion-icon>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input formControlName="password" [type]="revealedPassword ? 'text' : 'password'"></ion-input>
+              <ion-icon (click)="revealedPassword = !revealedPassword" slot="end" color="medium"
+                [name]="revealedPassword ? 'eye-off' : 'eye'"></ion-icon>
+            </ion-item>
+
+            <div class="ion-padding error-text" *ngIf="(password.touched) && password.errors">
+              <ion-text color="danger">
+                <span *ngIf="password.errors?.required">Password is required</span>
+                <span *ngIf="password.errors?.minlength">Password must be at least 6 character long</span>
+              </ion-text>
+            </div>
+
+
+            <div class="ion-padding ion-text-center">
+              <ion-button [disabled]="!form.valid" type="submit" color="tertiary" shape="round">
+                Login
+                <ion-icon slot="end" name="log-in-outline"></ion-icon>
+              </ion-button>
+            </div>
+
+          </form>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+</ion-content>

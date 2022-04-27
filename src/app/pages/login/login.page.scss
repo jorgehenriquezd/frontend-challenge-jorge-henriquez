@@ -1,0 +1,45 @@
+
+.form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;    
+}
+
+.login-container{   
+    background-image: url('../../../assets/images/banner.svg');
+    background-repeat: no-repeat;
+    height: 100%; 
+}
+
+.btn-submit{
+    text-transform: capitalize;
+}
+
+ion-card{
+    padding: 10px 25px 10px 10px;
+}
+
+form{
+   min-width: 330px;
+}
+
+.error-text{
+    font-size: 13px;
+    text-align: center;
+}
+
+img{
+    text-align: center;
+    width: 200px;
+}
+
+ion-item ion-icon{
+    position: relative;
+    top: 27px;
+}
+
+ion-item ion-label{
+    font-size: 15px;
+}
+
